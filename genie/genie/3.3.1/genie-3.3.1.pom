@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.standardchartered.genie</groupId>
+        <artifactId>genie-root</artifactId>
+        <version>1.3.0</version>
+    </parent>
+    <artifactId>genie</artifactId>
+    <packaging>pom</packaging>
+    <version>3.3.1</version>
+    <modules>
+        <module>genie-common</module>
+        <module>genie-languages</module>
+        <module>genie-modules</module>
+    </modules>
+
+    <scm>
+        <connection>scm:git:ssh://git@bitbucket.global.standardchartered.com:7999/genie/genie3.git</connection>
+        <developerConnection>scm:git:ssh://git@bitbucket.global.standardchartered.com:7999/genie/genie3.git</developerConnection>
+        <url>http://bitbucket.global.standardchartered.com:7990/projects/GENIE/repos/genie3/browse</url>
+    </scm>
+
+    <properties>
+        <argLine>-Dselenium.browser=PHANTOMJS</argLine>
+        <mockito.version>2.7.17</mockito.version>
+    </properties>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>com.github.sixro</groupId>
+                    <artifactId>confluence-maven-plugin</artifactId>
+                    <version>1.0.3</version>
+                    <configuration>
+                        <serverId>confluence</serverId>
+                        <endpoint>https://confluence.global.standardchartered.com/rpc/xmlrpc</endpoint>
+                        <spaceKey>~1537104</spaceKey>
+                        <parentTitle>Genie 3</parentTitle>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>net.alchim31.maven</groupId>
+                    <artifactId>scala-maven-plugin</artifactId>
+                    <version>3.2.2</version>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>add-source</goal>
+                                <goal>compile</goal>
+                                <goal>testCompile</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <configuration>
+                        <systemProperties>
+                            <property>
+                                <name>genie.build</name>
+                                <value>true1234</value> <!-- disable call home for its own build -->
+                            </property>
+                            <property>
+                                <name>genie.connection.mode</name>
+                                <value>offline</value> <!-- disable all connection communication -->
+                            </property>
+                        </systemProperties>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+</project>
